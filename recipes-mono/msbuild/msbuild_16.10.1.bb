@@ -21,8 +21,6 @@ SRC_URI = "git://github.com/mono/linux-packaging-msbuild.git;branch=main;protoco
            file://0001-Copy-hostfxr.patch \
            "
 
-S = "${UNPACKDIR}/git"
-
 do_configure () {
     sed "s|%libhostfxr%|${STAGING_DIR_TARGET}${libdir}/libhostfxr.so|g" -i ${S}/eng/cibuild_bootstrapped_msbuild.sh
 
@@ -35,14 +33,14 @@ do_configure () {
     sed "s|\$1/lib|${libdir}|g" -i ${S}/mono/build/gen_msbuild_wrapper.sh
 }
 
-export DOTNET_MSBUILD_SDK_RESOLVER_CLI_DIR="${STAGING_DATADIR_NATIVE}/dotnet"
-export CURL_CA_BUNDLE="${STAGING_DIR_NATIVE}/etc/ssl/certs/ca-certificates.crt"
+export DOTNET_MSBUILD_SDK_RESOLVER_CLI_DIR = "${STAGING_DATADIR_NATIVE}/dotnet"
+export CURL_CA_BUNDLE = "${STAGING_DIR_NATIVE}/etc/ssl/certs/ca-certificates.crt"
 
 do_compile[network] = "1"
 
 do_compile () {
     mkdir -p ${UNPACKDIR}/build-home-dir
-    export HOME=${UNPACKDIR}/build-home-dir
+    export HOME = "${UNPACKDIR}/build-home-dir"
 
     # Sync Mono certificate store with ca-certificates
     cert-sync --user ${STAGING_DIR_NATIVE}/etc/ssl/certs/ca-certificates.crt
@@ -57,7 +55,7 @@ do_compile () {
 }
 
 do_install () {
-    export HOME=${UNPACKDIR}/build-home-dir
+    export HOME = "${UNPACKDIR}/build-home-dir"
 
     ./stage1/mono-msbuild/msbuild mono/build/install.proj /p:MonoInstallPrefix="${D}" /p:Configuration=Release-MONO /p:IgnoreDiffFailure=true
 }

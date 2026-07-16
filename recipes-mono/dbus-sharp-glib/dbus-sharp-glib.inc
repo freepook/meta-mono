@@ -22,6 +22,5 @@ S = "${UNPACKDIR}/${PN}-${SDIRVER}"
 FILESPATH =. "${FILE_DIRNAME}/${PN}-${PV}:"
 
 do_configure:prepend() {
-  export DBUS_SHARP_LIBS="/r:${STAGING_LIBDIR}/mono/dbus-sharp-2.0/dbus-sharp.dll"
+  export DBUS_SHARP_LIBS = "/r:${STAGING_LIBDIR}/mono/dbus-sharp-2.0/dbus-sharp.dll"
 }
-

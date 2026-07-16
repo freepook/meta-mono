@@ -115,11 +115,11 @@ do_install:append:class-native() {
     rm -f ${D}${bindir}/dotnet
     cat > ${D}${bindir}/dotnet << 'WRAPPER'
 #!/bin/sh
-export HOME="${DOTNET_CLI_HOME:-${TMPDIR:-/tmp}/dotnet-home}"
+export HOME = "${DOTNET_CLI_HOME:-${TMPDIR:-/tmp}/dotnet-home}"
 mkdir -p "$HOME" 2>/dev/null || true
-export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
-export DOTNET_CLI_TELEMETRY_OPTOUT=1
-export DOTNET_NOLOGO=1
+export DOTNET_SKIP_FIRST_TIME_EXPERIENCE = "true"
+export DOTNET_CLI_TELEMETRY_OPTOUT = "1"
+export DOTNET_NOLOGO = "1"
 SELF_DIR="$(cd "$(dirname "$0")" && pwd)"
 exec "${SELF_DIR}/../share/dotnet/dotnet" "$@"
 WRAPPER

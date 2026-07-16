@@ -22,7 +22,7 @@ SRC_URI[sha256sum] = "6440f571416267ae0cb5698071d087b31e3084693fa2c829b1db37ca7e
 S = "${UNPACKDIR}/gtk-sharp-${PV}"
 
 do_configure:prepend() {
-  export PROFILER_CFLAGS="-D_REENTRANT -I${STAGING_DIR_TARGET}/usr/include/glib-2.0 -I${STAGING_DIR_TARGET}/usr/lib/glib-2.0 -I${STAGING_DIR_TARGET}/usr/lib/glib-2.0/include -I${STAGING_DIR_TARGET}/usr/include/mono-2.0"
+  export PROFILER_CFLAGS = "-D_REENTRANT -I${STAGING_DIR_TARGET}/usr/include/glib-2.0 -I${STAGING_DIR_TARGET}/usr/lib/glib-2.0 -I${STAGING_DIR_TARGET}/usr/lib/glib-2.0/include -I${STAGING_DIR_TARGET}/usr/include/mono-2.0"
 }
 
 do_install:append() {

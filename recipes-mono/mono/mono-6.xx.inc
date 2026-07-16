@@ -18,12 +18,6 @@ SRC_URI = "http://download.mono-project.com/sources/mono/mono-${PV}.tar.xz \
 #	   file://0001-reintroduce-gmcs.patch \
 #
 
-def mono_workspace_version (d):
-    pvsplit = d.getVar('PV',d,1).split('.')
-    return pvsplit[0] + '.' + pvsplit[1] + '.' + pvsplit[2]
-
-S = "${UNPACKDIR}/mono-${@mono_workspace_version(d)}"
-
 FILESPATH =. "${FILE_DIRNAME}/mono-6.xx:"
 FILESPATH =. "${FILE_DIRNAME}/mono-${PV}:"
 
@@ -132,3 +126,8 @@ PARALLEL_MAKEINST=""
 # Otherwise the full path to bash is written to the first line of doltlibtool script
 # which causes build failures with deeply nested build directories
 CACHED_CONFIGUREVARS += "ac_cv_path_DOLT_BASH='/usr/bin/env bash'"
+
+# Yocto 5.3 uses a recent toolchain where compatibility
+# with CMake < 3.5 has been removed from CMake.
+# CMake config workaround to to try configuring anyway:
+export CMAKE_POLICY_VERSION_MINIMUM = "3.5"
