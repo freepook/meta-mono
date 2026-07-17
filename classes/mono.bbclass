@@ -1,5 +1,5 @@
 # Class for building C# packages. If your package is all-managed, add
-# PACKAGE_ARCH="all"
+# PACKAGE_ARCH = "all"
 
 DEPENDS += "mono-native ca-certificates-native mono"
 RDEPENDS:${PN} += "mono"
