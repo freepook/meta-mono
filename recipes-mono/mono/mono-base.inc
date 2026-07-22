@@ -29,6 +29,15 @@ MONOLIBS = "\
     xbuild-frameworks \
     "
 
+# Workaround to have full mono version included into binary:
+do_configure:prepend() {
+    SRCH_STR="AC_INIT"
+    REPL_STR="AC_INIT(mono, [${PV}],"
+    GREP_STR=$(cat ${S}/configure.ac | grep ${SRCH_STR} || true)
+    ESCP_STR=$(echo "$GREP_STR" | sed 's`[][\\/.*^$]`\\&`g')
+    sed -i "s#$ESCP_STR#$REPL_STR#" ${S}/configure.ac
+}
+
 do_compile() {
     oe_runmake \
         BUILD_MAPFILE="/pathmap:${S}/mcs/class/lib/net_4_x-linux=.,${S}/mcs/class/lib/net_4_x-linux/Facades=.,${S}/mcs/class/lib/xbuild_12=.,${S}/mcs/class/lib/xbuild_14=.,${S}/mcs/tools/security=."
